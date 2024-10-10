@@ -181,7 +181,7 @@ public class Main extends JFrame {
         if (isUpdating) return;  // Предотвращение рекурсии
         isUpdating = true;
 
-        // Пример преобразования CMYK в RGB
+        // Преобразование CMYK в RGB
         float c = cmykSliders[0].getValue() / 100f;
         float m = cmykSliders[1].getValue() / 100f;
         float y = cmykSliders[2].getValue() / 100f;
@@ -191,14 +191,23 @@ public class Main extends JFrame {
         int g = (int) (255 * (1 - m) * (1 - k));
         int b = (int) (255 * (1 - y) * (1 - k));
 
-        // Обновляем RGB ползунки и поля
+        // Обновляем RGB ползунки и текстовые поля
         rgbSliders[0].setValue(r);
         rgbSliders[1].setValue(g);
         rgbSliders[2].setValue(b);
+        rgbFields[0].setText(String.valueOf(r));
+        rgbFields[1].setText(String.valueOf(g));
+        rgbFields[2].setText(String.valueOf(b));
 
         // Обновляем цвет панели
         Color color = new Color(r, g, b);
         colorPanel.setBackground(color);
+
+        // Обновляем текстовые поля CMYK
+        cmykFields[0].setText(String.valueOf(cmykSliders[0].getValue()));
+        cmykFields[1].setText(String.valueOf(cmykSliders[1].getValue()));
+        cmykFields[2].setText(String.valueOf(cmykSliders[2].getValue()));
+        cmykFields[3].setText(String.valueOf(cmykSliders[3].getValue()));
 
         // Обновляем HSV после RGB
         updateHSVFromRGB(r, g, b);
@@ -206,11 +215,12 @@ public class Main extends JFrame {
         isUpdating = false;
     }
 
+
     private void updateColorFromHSV() {
         if (isUpdating) return;  // Предотвращение рекурсии
         isUpdating = true;
 
-        // Пример преобразования HSV в RGB
+        // Преобразование HSV в RGB
         float h = hsvSliders[0].getValue() / 360f;
         float s = hsvSliders[1].getValue() / 100f;
         float v = hsvSliders[2].getValue() / 100f;
@@ -224,16 +234,26 @@ public class Main extends JFrame {
         rgbSliders[0].setValue(r);
         rgbSliders[1].setValue(g);
         rgbSliders[2].setValue(b);
+        rgbFields[0].setText(String.valueOf(r));
+        rgbFields[1].setText(String.valueOf(g));
+        rgbFields[2].setText(String.valueOf(b));
 
         // Обновляем цвет панели
         Color color = new Color(r, g, b);
         colorPanel.setBackground(color);
+
+        // Обновляем текстовые поля HSV
+        hsvFields[0].setText(String.valueOf(hsvSliders[0].getValue()));
+        hsvFields[1].setText(String.valueOf(hsvSliders[1].getValue()));
+        hsvFields[2].setText(String.valueOf(hsvSliders[2].getValue()));
 
         // Обновляем CMYK после RGB
         updateCMYKFromRGB(r, g, b);
 
         isUpdating = false;
     }
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::new);
